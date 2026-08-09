@@ -10,6 +10,7 @@
     "frames": "bash scripts/gen-frames.sh"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "astro": "^5.13.0"
   }
 }

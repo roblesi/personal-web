@@ -4,9 +4,21 @@ import Nav from '../components/Nav.astro';
 import OakHero from '../components/OakHero.astro';
 import Timeline from '../components/Timeline.astro';
 import Grass from '../components/Grass.astro';
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Ignacio Robles',
+  alternateName: 'Nacho Robles',
+  url: 'https://ignaciorobl.es',
+  jobTitle: 'Staff Software Engineer',
+  worksFor: { '@type': 'Organization', name: 'Google' },
+  sameAs: ['https://github.com/roblesi', 'https://www.linkedin.com/in/ignaciorobles'],
+};
 ---
 
-<Base>
+<Base title="Ignacio Robles · Staff Software Engineer at Google">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(personLd)} />
   <OakHero />
   <Nav />
   <main class="content" id="main">
