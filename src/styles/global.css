@@ -105,6 +105,9 @@ body{color:var(--cream);font-family:var(--sans);font-weight:300;-webkit-font-smo
 .entry.in .card{opacity:1;transform:none}
 .entry.in .side{opacity:1}
 @media (max-width:640px){
+  /* drop the spine's left padding so the line, nodes and promo marker (which are
+     positioned relative to the entries inside that padding) share one origin */
+  .spine{padding-left:0}
   .spine::before{left:18px}
   .entry{grid-template-columns:1fr;gap:8px;padding-left:46px}
   .entry::before{left:18px}
@@ -121,7 +124,11 @@ body{color:var(--cream);font-family:var(--sans);font-weight:300;-webkit-font-smo
 .promo .mark{position:absolute;left:50%;top:0;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px}
 .promo .mark i{width:10px;height:10px;border-top:2px solid var(--gold);border-left:2px solid var(--gold);transform:rotate(45deg);filter:drop-shadow(0 0 6px rgba(205,191,148,.5))}
 .promo .mark b{width:2px;height:46px;border-radius:2px;background:linear-gradient(180deg,var(--gold) 0%,rgba(205,191,148,.18) 100%)}
-.promo .mark em{position:absolute;top:50%;left:15px;transform:translateY(-50%);font-style:normal;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.7;white-space:nowrap}
+.promo .mark em{position:absolute;top:50%;left:15px;transform:translateY(-50%);font-style:normal;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.6;white-space:nowrap;animation:promoGlow 4.2s ease-in-out infinite}
+@keyframes promoGlow{
+  0%,100%{opacity:.55;text-shadow:none}
+  50%{opacity:.72;text-shadow:0 0 5px rgba(205,191,148,.28)}
+}
 @media (max-width:640px){.promo .mark{left:18px}}
 
 .ground{height:100vh;height:100dvh;min-height:520px;display:grid;place-items:center;text-align:center}
@@ -181,5 +188,6 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
   .dice .die,.dice.rolling .die{animation:none}
   .card,.entry .side,.contact{transition:none;opacity:1;transform:none}
   .nav-toggle span,#navlinks{transition:none}
+  .promo .mark em{animation:none;opacity:.7}
   .spine::before{transform:translateX(-50%) scaleY(1)}.entry::before{transform:translate(-50%,-50%) scale(1)}.entry::after{opacity:1}
 }
