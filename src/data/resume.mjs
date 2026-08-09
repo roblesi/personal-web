@@ -7,7 +7,6 @@ export const resume = {
   tagline: 'Staff Software Engineer at Google. AI-native and versatile.',
   location: 'San Francisco, CA',
   contact: {
-    phone: '(206) 488-7627',
     email: 'ignaciorobles@gmail.com',
     web: 'ignaciorobl.es',
     github: 'github.com/roblesi',

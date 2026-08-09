@@ -77,7 +77,6 @@ const html = `<meta charset="utf-8">
   <div class="tagline">${esc(r.tagline)}</div>
   <div class="contact">
     <span>${esc(r.location)}</span>
-    <span><b>Phone</b> ${esc(r.contact.phone)}</span>
     <span><b>Email</b> ${esc(r.contact.email)}</span>
     <span><b>Web</b> ${esc(r.contact.web)}</span>
     <span><b>GitHub</b> ${esc(r.contact.github)}</span>
