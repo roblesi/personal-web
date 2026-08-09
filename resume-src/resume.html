@@ -1,0 +1,209 @@
+<meta charset="utf-8">
+<style>
+  @font-face{font-family:"Geist";font-weight:300 700;font-style:normal;src:url("data:font/woff2;base64,__GEIST_B64__") format("woff2")}
+  @page{size:Letter;margin:0.55in 0.6in}
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--ink:#1a1c1a;--muted:#4b514b;--green:#17301f;--gold:#9a8748;--line:#d7dbd3}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-family:"Geist",Arial,sans-serif;color:var(--ink);font-size:10.3px;line-height:1.42}
+  a{color:var(--green);text-decoration:none}
+
+  header{border-bottom:2px solid var(--green);padding-bottom:9px;margin-bottom:12px}
+  .name{font-size:27px;font-weight:600;letter-spacing:-.01em;color:var(--green);line-height:1}
+  .name span{color:var(--gold);font-weight:500}
+  .tagline{margin-top:4px;font-size:10.5px;color:var(--muted);letter-spacing:.02em}
+  .contact{margin-top:8px;font-size:9.7px;color:var(--muted);display:flex;flex-wrap:wrap;gap:5px 12px}
+  .contact b{font-weight:600;color:var(--ink)}
+
+  section{margin-top:13px}
+  h2{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--green);
+     border-bottom:1px solid var(--gold);padding-bottom:3px;margin-bottom:7px}
+  p.summary{font-size:10.6px;line-height:1.5;color:var(--ink)}
+
+  .skills{display:grid;grid-template-columns:auto 1fr;gap:3px 12px}
+  .skills dt{font-weight:600;color:var(--green);white-space:nowrap}
+  .skills dd{color:var(--ink)}
+
+  .role{margin-bottom:9px}
+  .role:last-child{margin-bottom:2px}
+  .role-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .role-title{font-weight:600;font-size:11px;color:var(--ink)}
+  .role-title .org{color:var(--green)}
+  .role-dates{font-size:9.4px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .role-sub{font-size:9.4px;color:var(--muted);margin-top:1px}
+  ul{list-style:none;margin-top:4px}
+  li{position:relative;padding-left:12px;margin-bottom:2px;line-height:1.4}
+  li::before{content:"";position:absolute;left:2px;top:6px;width:3px;height:3px;border-radius:50%;background:var(--gold)}
+
+  .refs{font-size:9.6px;line-height:1.45}
+  .refs .item{margin-bottom:4px}
+  .refs i{font-style:italic;color:var(--muted)}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:0 26px}
+  .edu .deg{font-weight:600;color:var(--ink)}
+  .edu .meta{font-size:9.4px;color:var(--muted)}
+  .edu .item{margin-bottom:6px}
+</style>
+
+<header>
+  <div class="name">Ignacio Robles</div>
+  <div class="tagline">Staff Software Engineer at Google. AI-native and versatile.</div>
+  <div class="contact">
+    <span>San Francisco, CA</span>
+    <span><b>Phone</b> (206) 488-7627</span>
+    <span><b>Email</b> ignaciorobles@gmail.com</span>
+    <span><b>Web</b> ignaciorobl.es</span>
+    <span><b>GitHub</b> github.com/roblesi</span>
+    <span><b>LinkedIn</b> in/ignaciorobles</span>
+  </div>
+</header>
+
+<section>
+  <h2>Summary</h2>
+  <p class="summary">Staff Software Engineer at Google and an AI-native builder with 15 years of experience across the stack. I bring large language models and modern AI into products people use every day, and I build with AI tooling to ship faster and go further. My background runs from applied ML to large scale distributed systems at Amazon and Google, plus a startup CTO role. Versatile, senior, and product focused, with a record of high impact systems, patents, and mentoring.</p>
+</section>
+
+<section>
+  <h2>Skills</h2>
+  <dl class="skills">
+    <dt>AI &amp; Machine Learning</dt><dd>Large language models and generative AI, AI-native development workflows, applied machine learning, genetic and evolutionary algorithms, parallel and distributed computing.</dd>
+    <dt>Languages</dt><dd>Python, Java, TypeScript, SQL.</dd>
+    <dt>Systems &amp; Cloud</dt><dd>Large scale distributed systems, system design, AWS (EC2, S3, SQS, SNS, RDS), Google Cloud, Redis, Memcached, PostgreSQL.</dd>
+    <dt>Leadership</dt><dd>Technical mentoring, Amazon Bar Raiser, cross-organization design reviews.</dd>
+  </dl>
+</section>
+
+<section>
+  <h2>Experience</h2>
+
+  <div class="role">
+    <div class="role-head">
+      <div class="role-title">Staff Software Engineer, <span class="org">Google</span></div>
+      <div class="role-dates">Apr 2025 &ndash; Present</div>
+    </div>
+    <div class="role-sub">San Francisco, CA</div>
+    <ul>
+      <li>Bring AI and the power of large language models to products people use every day.</li>
+      <li>Drive an AI-native way of building, designing and shipping LLM-powered features across the team.</li>
+      <li>Named inventor on 4 patents at Google.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head">
+      <div class="role-title">Senior Software Engineer, <span class="org">Google (Nest)</span></div>
+      <div class="role-dates">Oct 2019 &ndash; Apr 2025</div>
+    </div>
+    <div class="role-sub">Seattle, WA</div>
+    <ul>
+      <li>Owned energy control features for the Nest Thermostat on the Nest Energy team, helping customers reduce their impact on the climate.</li>
+      <li>Contributed to the launch of Nest Renew.</li>
+      <li>Technologies: Java, Python.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head">
+      <div class="role-title">Senior Software Development Engineer (SDE-III), <span class="org">Amazon</span></div>
+      <div class="role-dates">Apr 2018 &ndash; Oct 2019</div>
+    </div>
+    <div class="role-sub">Seattle, WA</div>
+    <ul>
+      <li>Designed and led a scalable system to cartonize items for Prime Now orders, reducing P99 latency by 89% and 78% on average.</li>
+      <li>Nominated by Prime Now leadership and presented at the F3 Amazon Science Fair.</li>
+      <li>Designed a new system for online order fulfillment spanning three technology organizations.</li>
+      <li>Member of the F3 Samurai Group; led weekly design reviews and consultations, and coached two Bar Raisers in Training to certification.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head">
+      <div class="role-title">Software Development Engineer (SDE-II), <span class="org">Amazon</span></div>
+      <div class="role-dates">Jun 2014 &ndash; Mar 2018</div>
+    </div>
+    <div class="role-sub">Seattle, WA</div>
+    <ul>
+      <li>Ranked top tier year over year and won the Amazon A2Z Award for performance and peer recognition.</li>
+      <li>Engineered machine learning models for offline ad campaigns, peaking at 91% registrations per click.</li>
+      <li>Built tools that saved $2.8M yearly and raised productivity by an average of 13% across Prime Now warehouses in North America.</li>
+      <li>Main author of a machine learning paper accepted with positive blind peer reviews at the Amazon Machine Learning Conference 2016.</li>
+      <li>Certified Bar Raiser across 400+ interviews; won the Amazon Bringer of Talent award.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head">
+      <div class="role-title">Lead Platform Engineer, <span class="org">Rushmore</span></div>
+      <div class="role-dates">Dec 2013 &ndash; May 2014</div>
+    </div>
+    <div class="role-sub">Madrid, Spain</div>
+    <ul>
+      <li>Owned the product RESTful API and the AWS infrastructure, shipping new features and resolving critical bottlenecks.</li>
+      <li>Migrated the API to a more stable version and removed heavy dependencies. Featured in TechCrunch and The Next Web.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head">
+      <div class="role-title">Senior Backend Engineer &amp; CTO, <span class="org">Fever</span></div>
+      <div class="role-dates">Nov 2012 &ndash; Nov 2013</div>
+    </div>
+    <div class="role-sub">Madrid, Spain</div>
+    <ul>
+      <li>Defined the entire system architecture from scratch, from databases and web servers to monitoring.</li>
+      <li>Designed and built the main RESTful API consumed by the iOS and Android clients, over 85,000 lines of code, plus third-party integrations for payments, social, metrics, and push.</li>
+      <li>Featured in Forbes, Business Insider, TechCrunch, Mashable, and the Wall Street Journal.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head">
+      <div class="role-title">Senior Backend Engineer, <span class="org">Massive Knowledge</span></div>
+      <div class="role-dates">Sep 2011 &ndash; Oct 2012</div>
+    </div>
+    <div class="role-sub">Ciudad Real, Spain</div>
+    <ul>
+      <li>Built a distributed vertical crawler from scratch and owned the company database and systems infrastructure across local and cloud fleets.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head">
+      <div class="role-title">Software Development Engineer, <span class="org">DiCITS Lab, University of Granada</span></div>
+      <div class="role-dates">Jan 2010 &ndash; Jan 2011</div>
+    </div>
+    <div class="role-sub">Granada, Spain</div>
+    <ul>
+      <li>Developed new greedy algorithms for time series forecasting and implemented state-of-the-art techniques from the literature, applied to infrastructure evaluation and preservation.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Patents</h2>
+  <p>Named inventor on 4 patents at Google, including <i>Generating Actionable Insights from Smart Home Event Data</i> (2025).</p>
+</section>
+
+<section>
+  <h2>Publications</h2>
+  <div class="refs">
+    <div class="item">Robles, I., Alcala, R., Benitez, J.M. (2010). <i>On the Use of Distributed Genetic Algorithms for the Tuning of Fuzzy Rule-Based Systems.</i> Parallel and Distributed Computational Intelligence, SCI 269.</div>
+    <div class="item">Alcala, J., Garcia, S., Sanchez, L., Robles, I. (2010). <i>Introduction to the Experimental Design in the Data Mining Tool KEEL.</i> Intelligent Soft Computation and Evolving Data Mining: Integrating Advanced Technology.</div>
+    <div class="item">Robles, I., Alcala, R., Benitez, J.M. (2009). <i>Evolutionary Parallel and Gradually Distributed Lateral Tuning of Fuzzy Rule-Based Systems.</i> Evolutionary Intelligence, volume 2, 5-19.</div>
+    <div class="item">Robles, I., Alcala, R., Benitez, J.M. (2009). <i>Distributed Genetic Tuning of Fuzzy Rule-Based Systems.</i> IFSA/EUSFLAT 2009, 1740-1744.</div>
+  </div>
+</section>
+
+<section class="edu">
+  <h2>Education</h2>
+  <div class="two">
+    <div>
+      <div class="item"><div class="deg">Ph.D., Machine Learning, 2013</div><div class="meta">University of Granada, Spain. Thesis: Evolutionary Fuzzy Systems, Multiple Objectives, Scalability and Distributed Models.</div></div>
+      <div class="item"><div class="deg">M.Sc., Soft Computing and Intelligent Systems, 2010</div><div class="meta">University of Granada, Spain. Project published in an international journal.</div></div>
+    </div>
+    <div>
+      <div class="item"><div class="deg">B.Sc., Computer Science Engineering, 2009</div><div class="meta">University of Granada, Spain. Distributed computational intelligence.</div></div>
+      <div class="item"><div class="deg">B.Sc., Information Technology Engineering, 2006</div><div class="meta">University of Granada, Spain. Valedictorian, honors in Theory of Algorithms and Object-Oriented Software Design.</div></div>
+    </div>
+  </div>
+</section>
