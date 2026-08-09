@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import OakHero from '../components/OakHero.astro';
+import Timeline from '../components/Timeline.astro';
+import Grass from '../components/Grass.astro';
+---
+
+<Base>
+  <OakHero />
+  <Nav />
+  <main class="content" id="main">
+    <section class="hero" id="top" aria-label="Intro">
+      <div class="hero-copy" id="heroCopy">
+        <div class="eyebrow">Staff Engineer @ Google · AI-native</div>
+        <h1 class="name">Ignacio Robles
+          <span class="aside">Robles means <em>oaks</em>. Everyone calls me <em>Nacho</em>.</span>
+        </h1>
+      </div>
+    </section>
+
+    <Timeline />
+    <Grass />
+  </main>
+</Base>

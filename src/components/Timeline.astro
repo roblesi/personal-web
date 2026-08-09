@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+
+const entries = (await getCollection('timeline')).sort((a, b) => a.data.order - b.data.order);
+const firstEduIdx = entries.findIndex((e) => e.data.kind === 'education');
+---
+
+<section class="timeline" id="work" aria-label="Work and education timeline">
+  <div class="tl-intro">
+    <div class="eyebrow">The work, in reverse</div>
+    <h2>Scroll down, and watch the oak grow young.</h2>
+    <p>Newest at the top. Each step down rewinds the oak, frame by frame, back toward the seed.</p>
+  </div>
+
+  <div class="spine">
+    {entries.map((e, i) => (
+      <Fragment>
+        {i === firstEduIdx && firstEduIdx > 0 && (
+          <div class="older">&darr; down to the roots &darr;</div>
+        )}
+        <div class={`entry ${i % 2 === 0 ? 'right' : 'left'}`}>
+          <div class="card">
+            <div class="year">{e.data.dateLabel}</div>
+            <h3>{e.data.title}</h3>
+            <p>{e.data.blurb}</p>
+            {e.data.tags.length > 0 && (
+              <div class="tags">{e.data.tags.map((t) => <b>{t}</b>)}</div>
+            )}
+            {e.data.links.length > 0 && (
+              <div class="links-row">
+                {e.data.links.map((l) => (
+                  <a href={l.href} target="_blank" rel="noopener">{l.label}</a>
+                ))}
+              </div>
+            )}
+          </div>
+          <div class="side">{e.data.sideLabel}</div>
+        </div>
+      </Fragment>
+    ))}
+    <div class="older">&darr; down toward the seed &darr;</div>
+  </div>
+</section>
+
+<script>
+  // entries reveal when ~20% visible
+  const io = new IntersectionObserver(
+    (es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
+    { threshold: 0.2 }
+  );
+  document.querySelectorAll('.entry').forEach((el) => io.observe(el));
+
+  // the spine line is many screens tall, so use threshold 0: draw it in as soon
+  // as any part of the timeline enters the viewport.
+  const spineIo = new IntersectionObserver(
+    (es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); spineIo.unobserve(e.target); } }),
+    { threshold: 0 }
+  );
+  document.querySelectorAll('.spine').forEach((el) => spineIo.observe(el));
+</script>
