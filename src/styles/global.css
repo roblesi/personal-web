@@ -24,10 +24,18 @@ body{color:var(--cream);font-family:var(--sans);font-weight:300;-webkit-font-smo
   color:var(--cream-dim);font-size:12px;letter-spacing:.28em;text-transform:uppercase;transition:opacity .6s ease}
 #loader.done{opacity:0;pointer-events:none}
 
-/* pull-to-refresh easter egg: a rolling acorn while you drag down from the top */
+/* pull-to-refresh easter egg: a rolling acorn inside a filling ring; release to grow a new oak */
 .pull{position:fixed;top:0;left:0;right:0;z-index:66;display:flex;justify-content:center;pointer-events:none;
-  padding-top:max(10px,calc(env(safe-area-inset-top) + 4px));opacity:0}
-.pull svg{transform:translateY(0) rotate(0) scale(.7);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));will-change:transform,opacity}
+  padding-top:max(14px,calc(env(safe-area-inset-top) + 8px));opacity:0}
+.pull-orb{position:relative;width:44px;height:44px;display:grid;place-items:center;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5));will-change:transform}
+.pull-ring{position:absolute;inset:0;transform:rotate(-90deg)}
+.pr-track{fill:none;stroke:rgba(233,240,220,.15);stroke-width:2}
+.pr-fill{fill:none;stroke:var(--gold);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:119.4;stroke-dashoffset:119.4}
+.pull.ready .pr-fill{filter:drop-shadow(0 0 5px rgba(205,191,148,.75))}
+.pull-acorn{position:relative;width:26px;height:26px;transform:rotate(0) scale(.8);will-change:transform}
+.pa-sprout{opacity:0;transform:scale(0);transform-box:fill-box;transform-origin:center bottom}
+.pull.fired .pa-sprout{animation:sprout .55s ease .05s}
+@keyframes sprout{0%{opacity:0;transform:scale(0)}55%{opacity:1;transform:scale(1.2)}100%{opacity:1;transform:scale(1)}}
 
 .topscrim{position:fixed;top:0;left:0;right:0;height:140px;z-index:5;pointer-events:none;
   background:linear-gradient(180deg,rgba(8,15,10,.78) 0%,rgba(8,15,10,.34) 45%,rgba(8,15,10,0) 100%)}
@@ -196,5 +204,6 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
   .card,.entry .side,.contact{transition:none;opacity:1;transform:none}
   .nav-toggle span,#navlinks{transition:none}
   .promo .mark em{animation:none;opacity:.7}
+  .pull.fired .pa-sprout{animation:none;opacity:1;transform:none}
   .spine::before{transform:translateX(-50%) scaleY(1)}.entry::before{transform:translate(-50%,-50%) scale(1)}.entry::after{opacity:1}
 }
