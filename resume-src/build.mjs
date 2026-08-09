@@ -34,6 +34,7 @@ const role = (j) => `
   </div>`;
 
 const html = `<meta charset="utf-8">
+<title>${esc(r.name)} Resume</title>
 <style>
   @font-face{font-family:"Geist";font-weight:300 700;font-style:normal;src:url("data:font/woff2;base64,${b64}") format("woff2")}
   @page{size:Letter;margin:0.55in 0.6in}

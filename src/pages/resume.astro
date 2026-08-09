@@ -2,11 +2,34 @@
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import { resume as r } from '../data/resume.mjs';
+
+// Structured data: this page is Ignacio's professional profile (ProfilePage),
+// with the Person as its main entity. Helps Google understand the entity and
+// tie together the site, GitHub, and LinkedIn.
+const profileLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  mainEntity: {
+    '@type': 'Person',
+    name: r.name,
+    jobTitle: 'Staff Software Engineer',
+    worksFor: { '@type': 'Organization', name: 'Google' },
+    url: 'https://ignaciorobl.es',
+    email: `mailto:${r.contact.email}`,
+    alumniOf: { '@type': 'CollegeOrUniversity', name: 'University of Granada' },
+    knowsAbout: [
+      'Large language models', 'Generative AI', 'Applied machine learning',
+      'Distributed systems', 'AI-native development', 'System design',
+    ],
+    sameAs: ['https://github.com/roblesi', 'https://www.linkedin.com/in/ignaciorobles'],
+  },
+};
 ---
 
 <Base
   title="Resume · Ignacio Robles"
   description="Resume of Ignacio Robles, Staff Software Engineer at Google. AI-native and versatile.">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(profileLd)} />
   <Nav />
   <main class="page resume" id="main">
     <div class="eyebrow">Resume</div>
