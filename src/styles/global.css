@@ -34,8 +34,8 @@ body{color:var(--cream);font-family:var(--sans);font-weight:300;-webkit-font-smo
 .pull.ready .pr-fill{filter:drop-shadow(0 0 5px rgba(205,191,148,.75))}
 .pull-acorn{position:relative;width:26px;height:26px;transform:rotate(0) scale(.8);will-change:transform}
 .pa-sprout{opacity:0;transform:scale(0);transform-box:fill-box;transform-origin:center bottom}
-.pull.fired .pa-sprout{animation:sprout .55s ease .05s}
-@keyframes sprout{0%{opacity:0;transform:scale(0)}55%{opacity:1;transform:scale(1.2)}100%{opacity:1;transform:scale(1)}}
+.pull.fired .pa-sprout{animation:sprout .6s cubic-bezier(.34,1.56,.64,1) .05s forwards}
+@keyframes sprout{0%{opacity:0;transform:scale(0)}60%{opacity:1;transform:scale(1.25)}100%{opacity:1;transform:scale(1)}}
 
 .topscrim{position:fixed;top:0;left:0;right:0;height:140px;z-index:5;pointer-events:none;
   background:linear-gradient(180deg,rgba(8,15,10,.78) 0%,rgba(8,15,10,.34) 45%,rgba(8,15,10,0) 100%)}

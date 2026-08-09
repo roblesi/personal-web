@@ -160,19 +160,26 @@
     setTimeout(clearP, 470);
   };
   const fire = () => {
-    orb.style.transition = 'transform .55s cubic-bezier(.3,.85,.4,1)';
+    const y = Math.min(pDist * 0.5, 104);
+    // Beat 1: land it — ring completes, acorn pops upright, the shoot sprouts.
+    orb.style.transition = 'transform .5s cubic-bezier(.34,1.56,.64,1)';
     acornEl.style.transition = 'transform .5s cubic-bezier(.34,1.56,.64,1)';
-    ringFill.style.transition = 'stroke-dashoffset .2s ease, opacity .5s ease .1s';
-    ringFill.style.strokeDashoffset = '0';                        // complete the ring
-    orb.style.transform = `translateY(${Math.min(pDist * 0.5, 104) + 10}px) scale(1.08)`;
-    acornEl.style.transform = 'rotate(0) scale(1)';               // settle upright for the sprout
-    pull.classList.add('fired');                                  // pops the sprout (CSS)
-    pull.style.transition = 'opacity .5s ease .12s';
-    pull.style.opacity = '0';
+    ringFill.style.transition = 'stroke-dashoffset .28s ease';
+    ringFill.style.strokeDashoffset = '0';
+    orb.style.transform = `translateY(${y}px) scale(1.12)`;
+    acornEl.style.transform = 'rotate(0) scale(1.05)';
+    pull.classList.add('fired');                                  // grows the sprout (CSS)
     roll();                                                       // grow a new oak
     const g = (window as any).gtag;
     if (typeof g === 'function') g('event', 'pull_refresh');      // measure easter-egg usage
-    setTimeout(clearP, 660);
+    // Beat 2: hold so the sprout is readable, then float up and fade out.
+    setTimeout(() => {
+      orb.style.transition = 'transform .6s ease, opacity .6s ease';
+      pull.style.transition = 'opacity .6s ease';
+      orb.style.transform = `translateY(${y - 16}px) scale(.9)`;
+      pull.style.opacity = '0';
+    }, 680);
+    setTimeout(clearP, 1340);
   };
   const onMove = (e: TouchEvent) => {
     const dy = e.touches[0].clientY - pStart;
