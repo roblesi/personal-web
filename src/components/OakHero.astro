@@ -170,6 +170,8 @@
     pull.style.transition = 'opacity .5s ease .12s';
     pull.style.opacity = '0';
     roll();                                                       // grow a new oak
+    const g = (window as any).gtag;
+    if (typeof g === 'function') g('event', 'pull_refresh');      // measure easter-egg usage
     setTimeout(clearP, 660);
   };
   const onMove = (e: TouchEvent) => {
