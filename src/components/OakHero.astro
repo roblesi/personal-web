@@ -37,9 +37,11 @@
     `/oak/${key}/f_${String(i + 1).padStart(3, '0')}.jpg`;
 
   function resize() {
-    DPR = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight;
+    DPR = Math.min(devicePixelRatio || 1, 2);
+    // Size to the canvas's own CSS box (100% x 100lvh) so the fixed background
+    // always covers the largest viewport, even when Safari's toolbar retracts.
+    W = canvas.clientWidth || innerWidth; H = canvas.clientHeight || innerHeight;
     canvas.width = W * DPR; canvas.height = H * DPR;
-    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.imageSmoothingQuality = 'high';
     cur = -1; draw();
   }
