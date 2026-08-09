@@ -4,22 +4,29 @@ The resume content lives in one place: [`src/data/resume.mjs`](../src/data/resum
 Both outputs read from it, so they never drift:
 
 - **Web** — [`src/pages/resume.astro`](../src/pages/resume.astro) renders it at `/resume`.
-- **PDF** — `build.mjs` renders it to `../public/resume.pdf` (embedded Geist font,
+- **PDF** — `build.mjs` renders it to `public/resume.pdf` (embedded Geist font,
   headless Chrome), which the `/resume` page links to as a download.
 
-## Edit the resume
+## Editing the resume
 
-1. Change the content in `src/data/resume.mjs`.
-2. Rebuild the PDF:
+Just edit the content in [`src/data/resume.mjs`](../src/data/resume.mjs) and push.
+The deploy workflow rebuilds `public/resume.pdf` from it on every push (see
+[`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml)), so the PDF can
+never fall out of sync. `public/resume.pdf` is gitignored and generated, not
+committed.
 
-   ```bash
-   node resume-src/build.mjs
-   ```
+## Building the PDF locally (optional)
 
-3. Commit `src/data/resume.mjs` and the regenerated `public/resume.pdf`.
+Only needed to preview the PDF before pushing:
+
+```bash
+node resume-src/build.mjs
+```
+
+Uses macOS Chrome by default; set `CHROME_PATH` to override. CI sets it to the
+runner's Chrome automatically.
 
 ## Note
 
 This folder is not part of the Astro build (only `public/` and `src/pages` are
-published), so it is never served or indexed on ignaciorobl.es. Only the
-generated `public/resume.pdf` and the `/resume` page ship.
+published), so it is never served or indexed on ignaciorobl.es.

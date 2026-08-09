@@ -8,6 +8,9 @@ node_modules/
 # local source media used only to generate frames (not deployed)
 media-src/
 
+# resume PDF is generated from src/data/resume.mjs (in CI on deploy)
+public/resume.pdf
+
 # os / editor
 .DS_Store
 *.log

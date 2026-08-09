@@ -17,7 +17,8 @@ import { resume as r } from '../src/data/resume.mjs';
 const here = dirname(fileURLToPath(import.meta.url));
 const FONT = join(here, '../public/fonts/geist.woff2');
 const OUT = join(here, '../public/resume.pdf');
-const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+// Local default is macOS Chrome; CI sets CHROME_PATH to the runner's Chrome.
+const CHROME = process.env.CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const b64 = readFileSync(FONT).toString('base64');
@@ -130,9 +131,9 @@ const tmp = join(tmpdir(), `resume-${process.pid}.html`);
 writeFileSync(tmp, html);
 try {
   execFileSync(CHROME, [
-    '--headless=new', '--disable-gpu', '--no-pdf-header-footer',
-    '--run-all-compositor-stages-before-draw', '--virtual-time-budget=3000',
-    `--print-to-pdf=${OUT}`, `file://${tmp}`,
+    '--headless=new', '--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage',
+    '--no-pdf-header-footer', '--run-all-compositor-stages-before-draw',
+    '--virtual-time-budget=3000', `--print-to-pdf=${OUT}`, `file://${tmp}`,
   ], { stdio: 'ignore' });
   console.log(`Built ${OUT}`);
 } finally {

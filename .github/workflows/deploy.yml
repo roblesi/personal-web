@@ -24,6 +24,12 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      # Regenerate the resume PDF from src/data/resume.mjs so it can never drift.
+      - id: chrome
+        uses: browser-actions/setup-chrome@v1
+      - run: node resume-src/build.mjs
+        env:
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
