@@ -129,7 +129,7 @@ body{color:var(--cream);font-family:var(--sans);font-weight:300;-webkit-font-smo
 @keyframes tumble{0%{transform:rotate(0) scale(1)}35%{transform:rotate(200deg) scale(.86)}70%{transform:rotate(380deg) scale(1.1)}100%{transform:rotate(540deg) scale(1)}}
 .dice.rolling .die{animation:tumble .55s cubic-bezier(.3,.85,.35,1)}
 
-/* Artifacts page */
+/* content pages (resume) */
 .page{position:relative;z-index:3;max-width:840px;margin:0 auto;padding:22vh 24px 18vh}
 .page .eyebrow{margin-bottom:14px}
 .page h1{font-weight:300;font-size:clamp(34px,7vw,64px);letter-spacing:-.03em;line-height:1}
