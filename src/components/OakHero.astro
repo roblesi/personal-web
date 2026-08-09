@@ -8,6 +8,15 @@
 <div class="grain" aria-hidden="true"></div>
 <div id="loader" role="status" aria-live="polite">Growing the oak&hellip;</div>
 
+<div id="pull" class="pull" aria-hidden="true">
+  <svg viewBox="0 0 32 32" width="30" height="30">
+    <ellipse cx="16" cy="19.5" rx="6.4" ry="7.4" fill="#cdbf94"></ellipse>
+    <path d="M8.5 12.5h15a1.8 1.8 0 0 1-1.8 3H10.3a1.8 1.8 0 0 1-1.8-3z" fill="#6b4f2a"></path>
+    <path d="M9.5 12.5q6.5-4 13 0" fill="none" stroke="#6b4f2a" stroke-width="1.8" stroke-linecap="round"></path>
+    <rect x="15.1" y="6.5" width="1.8" height="4" rx="0.9" fill="#6b4f2a"></rect>
+  </svg>
+</div>
+
 <div class="scrollcue" id="cue" aria-hidden="true"><span>Scroll to rewind &darr;</span></div>
 
 <div id="diceWrap" class="dice-wrap">
@@ -107,6 +116,46 @@
 
   dice.addEventListener('click', roll);
   randPips();
+
+  // --- pull-to-refresh easter egg: pull down from the very top to roll a fresh oak ---
+  const pull = document.getElementById('pull')!;
+  const acornEl = pull.querySelector('svg') as SVGElement;
+  const P_MAX = 150, P_TRIGGER = 76;
+  let pStart = 0, pOn = false, pDist = 0;
+  const setP = (d: number) => {
+    pDist = d;
+    pull.style.opacity = String(Math.min(1, d / 40));
+    acornEl.style.transform = `translateY(${Math.min(d * 0.6, 74)}px) rotate(${d * 3.2}deg) scale(${0.7 + Math.min(1, d / P_TRIGGER) * 0.3})`;
+  };
+  const restP = (fired: boolean) => {
+    acornEl.style.transition = fired ? 'transform .55s cubic-bezier(.3,.85,.35,1)' : 'transform .45s cubic-bezier(.34,1.56,.64,1)';
+    pull.style.transition = 'opacity .5s ease';
+    pull.style.opacity = '0';
+    acornEl.style.transform = fired ? 'translateY(30px) rotate(760deg) scale(.34)' : 'translateY(0) rotate(0) scale(.7)';
+    setTimeout(() => { acornEl.style.transition = ''; pull.style.transition = ''; acornEl.style.transform = 'translateY(0) rotate(0) scale(.7)'; }, 580);
+  };
+  const onMove = (e: TouchEvent) => {
+    const dy = e.touches[0].clientY - pStart;
+    if (dy <= 0 || scrollY > 0) { endP(false); return; }
+    e.preventDefault(); // we own the gesture; blocks the native pull-to-refresh
+    setP(Math.min(dy, P_MAX));
+  };
+  const endP = (release: boolean) => {
+    if (!pOn) return;
+    pOn = false;
+    removeEventListener('touchmove', onMove);
+    if (release && pDist >= P_TRIGGER) { roll(); restP(true); }
+    else if (pDist > 0) restP(false);
+    else pull.style.opacity = '0';
+  };
+  addEventListener('touchstart', (e) => {
+    if (scrollY <= 0 && e.touches.length === 1) {
+      pStart = e.touches[0].clientY; pOn = true; pDist = 0;
+      addEventListener('touchmove', onMove, { passive: false });
+    }
+  }, { passive: true });
+  addEventListener('touchend', () => endP(true), { passive: true });
+  addEventListener('touchcancel', () => endP(false), { passive: true });
 
   let ticking = false;
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { draw(); ticking = false; }); } }, { passive: true });
