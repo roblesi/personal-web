@@ -111,6 +111,9 @@
   let ticking = false;
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { draw(); ticking = false; }); } }, { passive: true });
   addEventListener('resize', resize);
+  // Keep the drawing buffer matched to the canvas's actual box. iOS Safari settles
+  // 100lvh a beat after first paint; without this the oak stretches on first load.
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(() => resize()).observe(canvas);
   resize();
 
   fetch('/oak/manifest.json')
