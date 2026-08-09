@@ -1,23 +1,25 @@
-# Resume source
+# Resume
 
-Editable source for the resume served at `/resume.pdf`.
+The resume content lives in one place: [`src/data/resume.mjs`](../src/data/resume.mjs).
+Both outputs read from it, so they never drift:
 
-- `resume.html` — the resume markup and styling. Keeps a `__GEIST_B64__`
-  placeholder; the Geist font is embedded at build time so the PDF is
-  self-contained.
-- `build.sh` — injects the font and renders `resume.html` to
-  `../public/resume.pdf` using headless Chrome.
+- **Web** — [`src/pages/resume.astro`](../src/pages/resume.astro) renders it at `/resume`.
+- **PDF** — `build.mjs` renders it to `../public/resume.pdf` (embedded Geist font,
+  headless Chrome), which the `/resume` page links to as a download.
 
-## Rebuild
+## Edit the resume
 
-```bash
-bash resume-src/build.sh
-```
+1. Change the content in `src/data/resume.mjs`.
+2. Rebuild the PDF:
 
-Then commit the regenerated `public/resume.pdf`.
+   ```bash
+   node resume-src/build.mjs
+   ```
+
+3. Commit `src/data/resume.mjs` and the regenerated `public/resume.pdf`.
 
 ## Note
 
-This folder is not part of the site build (Astro only publishes `public/` and
-`src/pages`), so the source is never served or indexed on ignaciorobl.es. The
-generated `public/resume.pdf` is the only thing published.
+This folder is not part of the Astro build (only `public/` and `src/pages` are
+published), so it is never served or indexed on ignaciorobl.es. Only the
+generated `public/resume.pdf` and the `/resume` page ship.
