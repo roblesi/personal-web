@@ -99,6 +99,8 @@
       setTimeout(() => dice.classList.remove('rolling'), 560);
     } else randPips();
     loadStyle(next, false); // keep the current oak visible until the new one is ready
+    const g = (window as any).gtag;
+    if (typeof g === 'function') g('event', 'oak_reroll', { oak_style: next.key });
   }
 
   dice.addEventListener('click', roll);
