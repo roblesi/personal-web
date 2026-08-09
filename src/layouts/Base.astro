@@ -40,5 +40,16 @@ const {
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <slot />
+    <script>
+      // Fire a GA4 event for any link tagged with data-ga (resume download, email, etc.).
+      document.addEventListener('click', (e) => {
+        const t = e.target as Element | null;
+        const a = t && t.closest ? t.closest('a[data-ga]') : null;
+        if (a) {
+          const g = (window as any).gtag;
+          if (typeof g === 'function') g('event', a.getAttribute('data-ga'));
+        }
+      }, true);
+    </script>
   </body>
 </html>
