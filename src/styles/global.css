@@ -33,7 +33,21 @@ body{color:var(--cream);font-family:var(--sans);font-weight:300;-webkit-font-smo
 .topnav .links{display:flex;gap:22px}
 .topnav .links a{opacity:.82;transition:opacity .2s}
 .topnav .links a:hover{opacity:1}
-@media (max-width:560px){.topnav .links{display:none}}
+.nav-toggle{display:none;flex-direction:column;justify-content:center;gap:4px;width:36px;height:34px;padding:8px 6px;background:transparent;border:0;cursor:pointer}
+.nav-toggle span{display:block;height:2px;width:100%;background:var(--cream);border-radius:2px;transition:transform .25s ease,opacity .2s ease}
+.topnav.open .nav-toggle span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.topnav.open .nav-toggle span:nth-child(2){opacity:0}
+.topnav.open .nav-toggle span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+@media (max-width:560px){
+  .nav-toggle{display:flex}
+  #navlinks{position:absolute;top:calc(100% + 6px);right:clamp(18px,4vw,44px);flex-direction:column;gap:0;min-width:168px;padding:6px;
+    background:rgba(8,14,10,.92);border:1px solid rgba(233,240,220,.14);border-radius:14px;box-shadow:0 24px 60px -24px rgba(0,0,0,.7);
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    opacity:0;transform:translateY(-8px) scale(.98);transform-origin:top right;pointer-events:none;transition:opacity .22s ease,transform .22s ease}
+  .topnav.open #navlinks{opacity:1;transform:none;pointer-events:auto}
+  #navlinks a{opacity:.92;padding:12px 14px;border-radius:9px}
+  #navlinks a:hover{opacity:1;background:rgba(233,240,220,.06)}
+}
 
 .hero{height:100vh;height:100dvh;min-height:600px;display:grid;place-items:center;text-align:center}
 /* frosted-glass panel behind the hero copy (same family as the timeline cards).
@@ -101,6 +115,15 @@ body{color:var(--cream);font-family:var(--sans);font-weight:300;-webkit-font-smo
 }
 .older{text-align:center;color:var(--cream-dim);font-size:12px;letter-spacing:.28em;text-transform:uppercase;padding:22px 0 0;opacity:.7}
 
+/* promotion connector: a subtle gold "rise" on the spine linking a promotion
+   pair (e.g. SDE-2 -> SDE-3), so the two cards read as one climb at one company */
+.promo{position:relative;z-index:4;height:0;pointer-events:none}
+.promo .mark{position:absolute;left:50%;top:0;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px}
+.promo .mark i{width:10px;height:10px;border-top:2px solid var(--gold);border-left:2px solid var(--gold);transform:rotate(45deg);filter:drop-shadow(0 0 6px rgba(205,191,148,.5))}
+.promo .mark b{width:2px;height:46px;border-radius:2px;background:linear-gradient(180deg,var(--gold) 0%,rgba(205,191,148,.18) 100%)}
+.promo .mark em{position:absolute;top:50%;left:15px;transform:translateY(-50%);font-style:normal;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.7;white-space:nowrap}
+@media (max-width:640px){.promo .mark{left:18px}}
+
 .ground{height:100vh;height:100dvh;min-height:520px;display:grid;place-items:center;text-align:center}
 .contact{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s cubic-bezier(.22,1,.36,1);padding:0 24px}
 .ground.in .contact{opacity:1;transform:none}
@@ -157,5 +180,6 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
   html{scroll-behavior:auto}.scrollcue span{animation:none}.grain{animation:none}
   .dice .die,.dice.rolling .die{animation:none}
   .card,.entry .side,.contact{transition:none;opacity:1;transform:none}
+  .nav-toggle span,#navlinks{transition:none}
   .spine::before{transform:translateX(-50%) scaleY(1)}.entry::before{transform:translate(-50%,-50%) scale(1)}.entry::after{opacity:1}
 }

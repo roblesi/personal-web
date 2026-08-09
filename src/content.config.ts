@@ -14,6 +14,9 @@ const timeline = defineCollection({
     blurb: z.string(),
     tags: z.array(z.string()).default([]),
     links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
+    // true when this role was a promotion from the role directly below it (same
+    // company). Draws a "rise" connector on the spine linking the two cards.
+    promotion: z.boolean().default(false),
   }),
 });
 

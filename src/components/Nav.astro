@@ -4,9 +4,28 @@
 <div class="topscrim" aria-hidden="true"></div>
 <nav class="topnav" aria-label="Primary">
   <a class="mono" href="/" aria-label="IR, home">IR</a>
-  <span class="links">
+  <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="navlinks">
+    <span></span><span></span><span></span>
+  </button>
+  <span class="links" id="navlinks">
     <a href="/#work">Work</a>
     <a href="/resume">Resume</a>
     <a href="/#contact">Contact</a>
   </span>
 </nav>
+
+<script>
+  // Mobile menu: the hamburger toggles the links dropdown (hidden inline on desktop).
+  const nav = document.querySelector('.topnav');
+  const toggle = nav?.querySelector('.nav-toggle') as HTMLButtonElement | null;
+  if (nav && toggle) {
+    const close = () => { nav.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); };
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggle.setAttribute('aria-expanded', String(nav.classList.toggle('open')));
+    });
+    nav.querySelectorAll('.links a').forEach((a) => a.addEventListener('click', close));
+    document.addEventListener('click', (e) => { if (!nav.contains(e.target as Node)) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+  }
+</script>

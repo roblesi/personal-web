@@ -36,6 +36,11 @@ const firstEduIdx = entries.findIndex((e) => e.data.kind === 'education');
           </div>
           <div class="side">{e.data.sideLabel}</div>
         </div>
+        {e.data.promotion && (
+          <div class="promo" aria-hidden="true">
+            <span class="mark"><i></i><b></b><em>promoted</em></span>
+          </div>
+        )}
       </Fragment>
     ))}
     <div class="older">&darr; down toward the seed &darr;</div>

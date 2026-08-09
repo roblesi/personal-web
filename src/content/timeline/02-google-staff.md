@@ -7,4 +7,5 @@ sideLabel: "2025 – now"
 blurb: "Bringing AI and the power of LLMs to the products people love."
 tags: ["LLMs", "AI", "4 patents"]
 links: []
+promotion: true
 ---
