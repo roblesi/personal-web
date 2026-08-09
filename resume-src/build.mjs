@@ -12,6 +12,7 @@ import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { PDFDocument } from 'pdf-lib';
 import { resume as r } from '../src/data/resume.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -136,6 +137,19 @@ try {
     '--no-pdf-header-footer', '--run-all-compositor-stages-before-draw',
     '--virtual-time-budget=3000', `--print-to-pdf=${OUT}`, `file://${tmp}`,
   ], { stdio: 'ignore' });
+
+  // Chrome only writes the title; fill in the rest of the document metadata.
+  const pdf = await PDFDocument.load(readFileSync(OUT));
+  pdf.setTitle(`${r.name} Resume`);
+  pdf.setAuthor(r.name);
+  pdf.setSubject('Resume of Ignacio Robles, Staff Software Engineer at Google. AI-native and versatile.');
+  pdf.setKeywords([
+    'Ignacio Robles', 'resume', 'CV', 'Staff Software Engineer', 'Google',
+    'AI-native', 'large language models', 'machine learning', 'software engineer', 'San Francisco',
+  ]);
+  pdf.setCreator('ignaciorobl.es');
+  pdf.setProducer('ignaciorobl.es');
+  writeFileSync(OUT, await pdf.save());
   console.log(`Built ${OUT}`);
 } finally {
   unlinkSync(tmp);

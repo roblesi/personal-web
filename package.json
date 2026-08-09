@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^5.13.0"
+    "astro": "^5.13.0",
+    "pdf-lib": "^1.17.1"
   }
 }
