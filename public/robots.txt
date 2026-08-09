@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+# The raw PDF duplicates the /resume page; keep it out of search, still downloadable.
+Disallow: /resume.pdf
 
 Sitemap: https://ignaciorobl.es/sitemap-index.xml
