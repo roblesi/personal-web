@@ -107,8 +107,15 @@
       im.src = frameURL(style, i); imgs[i] = im;
     }
   }
+  // Portrait viewports only serve styles that ship a portrait set — a proper
+  // vertical oak beats a cropped widescreen, even if that's less variety on phones.
+  const eligible = () => {
+    const pool = portraitMq.matches ? STYLES.filter(s => s.pframes != null) : STYLES;
+    return pool.length ? pool : STYLES;
+  };
   function pick(exclude: typeof STYLES[number] | null) {
-    let pool = STYLES.filter(s => s !== exclude); if (!pool.length) pool = STYLES;
+    let pool = eligible().filter(s => s !== exclude);
+    if (!pool.length) pool = eligible();
     return pool[Math.floor(Math.random() * pool.length)];
   }
   function randPips() { dieEls.forEach(d => d.setAttribute('data-v', String(1 + Math.floor(Math.random() * 6)))); }
@@ -216,8 +223,13 @@
   // 100lvh a beat after first paint; without this the oak stretches on first load.
   if (typeof ResizeObserver !== 'undefined') new ResizeObserver(() => resize()).observe(canvas);
   resize();
-  // On rotate, swap to the matching frame set — only for styles that ship both.
-  portraitMq.addEventListener('change', () => { if (active && active.pframes != null) loadStyle(active, false); });
+  // On rotate: entering portrait with a widescreen-only style, pick one that has a
+  // portrait set; otherwise swap the active style between its two frame sets.
+  portraitMq.addEventListener('change', () => {
+    if (!active) return;
+    if (portraitMq.matches && active.pframes == null) loadStyle(pick(active), false);
+    else if (active.pframes != null) loadStyle(active, false);
+  });
 
   fetch('/oak/manifest.json')
     .then(r => r.json())
