@@ -13,9 +13,9 @@ set -euo pipefail
 SRC="${SRC:-media-src}"
 OUT="public/oak"
 FPS="${FPS:-4}"                 # ~40 frames for a 10s clip
-WIDE_SCALE="${WIDE_SCALE:-1100}"
-PORT_SCALE="${PORT_SCALE:-720}"
-WIDE_Q="${WIDE_Q:-3}"
+WIDE_SCALE="${WIDE_SCALE:-1280}"  # native source width (720p sources); higher just upscales
+PORT_SCALE="${PORT_SCALE:-720}"   # native portrait source width
+WIDE_Q="${WIDE_Q:-2}"
 PORT_Q="${PORT_Q:-4}"
 
 # key | widescreen source (no ext) | label | portrait source (no ext; empty = none)
