@@ -46,11 +46,15 @@
 
   let DPR = 1, W = 0, H = 0, cur = -1;
   let imgs: HTMLImageElement[] = [], N = 0, ready = false, token = 0;
-  let STYLES: { key: string; label: string; frames: number }[] = [];
+  let STYLES: { key: string; label: string; frames: number; pframes?: number }[] = [];
   let active: typeof STYLES[number] | null = null;
 
-  const frameURL = (key: string, i: number) =>
-    `/oak/${key}/f_${String(i + 1).padStart(3, '0')}.jpg`;
+  // Portrait viewports use the portrait frame set for styles that ship one (pframes).
+  const portraitMq = matchMedia('(orientation: portrait)');
+  const usePortrait = (s: typeof STYLES[number]) => portraitMq.matches && s.pframes != null;
+  const frameCount = (s: typeof STYLES[number]) => (usePortrait(s) ? s.pframes! : s.frames);
+  const frameURL = (s: typeof STYLES[number], i: number) =>
+    `/oak/${s.key}/${usePortrait(s) ? 'portrait/' : ''}f_${String(i + 1).padStart(3, '0')}.jpg`;
 
   function resize() {
     DPR = Math.min(devicePixelRatio || 1, 2);
@@ -92,7 +96,7 @@
 
   function loadStyle(style: typeof STYLES[number], showLoader: boolean) {
     active = style; ready = false; cur = -1; const my = ++token;
-    N = style.frames; imgs = new Array(N); let loaded = 0;
+    N = frameCount(style); imgs = new Array(N); let loaded = 0;
     if (showLoader) loader.classList.remove('done');
     for (let i = 0; i < N; i++) {
       const im = new Image(); im.decoding = 'async';
@@ -100,7 +104,7 @@
         if (my !== token) return; loaded++;
         if (loaded >= N) { ready = true; loader.classList.add('done'); cur = -1; draw(); }
       };
-      im.src = frameURL(style.key, i); imgs[i] = im;
+      im.src = frameURL(style, i); imgs[i] = im;
     }
   }
   function pick(exclude: typeof STYLES[number] | null) {
@@ -212,6 +216,8 @@
   // 100lvh a beat after first paint; without this the oak stretches on first load.
   if (typeof ResizeObserver !== 'undefined') new ResizeObserver(() => resize()).observe(canvas);
   resize();
+  // On rotate, swap to the matching frame set — only for styles that ship both.
+  portraitMq.addEventListener('change', () => { if (active && active.pframes != null) loadStyle(active, false); });
 
   fetch('/oak/manifest.json')
     .then(r => r.json())
