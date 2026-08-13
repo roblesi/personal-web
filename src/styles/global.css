@@ -105,6 +105,8 @@ body{color:var(--cream);font-family:var(--sans);font-weight:300;-webkit-font-smo
 .card{background:rgba(9,15,11,.8);border:1px solid var(--line);border-radius:14px;padding:24px 26px;position:relative;z-index:2;
   backdrop-filter:blur(10px);opacity:0;transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
 .card .year{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-variant-numeric:tabular-nums}
+.card .year span{display:block}
+.card .year span + span{margin-top:3px}
 .card h3{font-weight:400;font-size:22px;margin:8px 0 8px;letter-spacing:-.01em}
 .card p{color:var(--cream-dim);line-height:1.6;font-size:14.5px}
 .card .tags{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
