@@ -14,7 +14,7 @@ const firstEduIdx = entries.findIndex((e) => e.data.kind === 'education');
 
   <div class="spine">
     {entries.map((e, i) => {
-      // "dates · company · location" renders as two lines: dates, then company + location
+      // "dates · company · location" renders as two lines: company + location, then dates
       const [dates, ...where] = e.data.dateLabel.split(' · ');
       return (
       <Fragment>
@@ -24,8 +24,8 @@ const firstEduIdx = entries.findIndex((e) => e.data.kind === 'education');
         <div class={`entry ${i % 2 === 0 ? 'right' : 'left'}`}>
           <div class="card">
             <div class="year">
-              <span>{dates}</span>
               {where.length > 0 && <span>{where.join(' · ')}</span>}
+              <span>{dates}</span>
             </div>
             <h3>{e.data.title.split(' · ').map((part, i) => (
               <Fragment>{i > 0 && <br />}{part}</Fragment>
