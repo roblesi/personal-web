@@ -21,7 +21,9 @@ const firstEduIdx = entries.findIndex((e) => e.data.kind === 'education');
         <div class={`entry ${i % 2 === 0 ? 'right' : 'left'}`}>
           <div class="card">
             <div class="year">{e.data.dateLabel}</div>
-            <h3>{e.data.title}</h3>
+            <h3>{e.data.title.split(' · ').map((part, i) => (
+              <Fragment>{i > 0 && <br />}{part}</Fragment>
+            ))}</h3>
             <p>{e.data.blurb}</p>
             {e.data.tags.length > 0 && (
               <div class="tags">{e.data.tags.map((t) => <b>{t}</b>)}</div>
