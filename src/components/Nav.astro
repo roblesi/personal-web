@@ -28,4 +28,24 @@
     document.addEventListener('click', (e) => { if (!nav.contains(e.target as Node)) close(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
   }
+
+  // The monogram links home, but on the homepage that would just reload. Scroll
+  // back to the top instead, which rewinds the oak to full growth on the way up.
+  const mono = nav?.querySelector('.mono') as HTMLAnchorElement | null;
+  if (mono) {
+    mono.addEventListener('click', (e) => {
+      const onHome = location.pathname === '/' || location.pathname === '/index.html';
+      // let modified clicks (new tab/window, download) behave normally
+      const modified = e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
+      if (!onHome || modified) return;
+      e.preventDefault();
+      nav?.classList.remove('open');
+      toggle?.setAttribute('aria-expanded', 'false');
+      const reduceMo = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const from = scrollY;
+      scrollTo({ top: 0, behavior: reduceMo ? 'auto' : 'smooth' });
+      // where smooth scrolling isn't honoured, jump so the click is never a no-op
+      setTimeout(() => { if (scrollY === from && scrollY !== 0) scrollTo({ top: 0, behavior: 'instant' }); }, 250);
+    });
+  }
 </script>
