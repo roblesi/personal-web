@@ -33,7 +33,7 @@ export const resume = {
       ],
     },
     {
-      title: 'Senior Software Engineer', org: 'Google (Nest)', location: 'Seattle, WA', dates: 'Oct 2019 – Apr 2025',
+      title: 'Senior Software Engineer', org: 'Google', location: 'Seattle, WA', dates: 'Oct 2019 – Apr 2025',
       bullets: [
         'Owned energy control features for the Nest Thermostat on the Nest Energy team, helping customers reduce their impact on the climate.',
         'Contributed to the launch of Nest Renew.',
