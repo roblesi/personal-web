@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+---
+
+<Base
+  title="Not found · Ignacio Robles"
+  description="This page does not exist.">
+  <meta name="robots" content="noindex" slot="head" />
+
+  <div id="acornbg" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <Nav />
+
+  <main class="content notfound" id="main">
+    <div class="hero-copy nf-copy">
+      <div class="eyebrow">404</div>
+      <h1 class="nf-title">This branch never grew.</h1>
+      <p class="nf-lede">The page you are looking for does not exist. The acorn, at least, is still here.</p>
+      <a class="nf-home" href="/">Back to the oak</a>
+    </div>
+  </main>
+</Base>
+
+<script>
+  // The 404 is the seed that never became a tree: show frame 001 (the lone acorn)
+  // from a random oak style, portrait set on portrait viewports, same as the hero.
+  const bg = document.getElementById('acornbg')!;
+  const portraitMq = matchMedia('(orientation: portrait)');
+
+  function show(url: string) {
+    const img = new Image();
+    img.onload = () => { bg.style.backgroundImage = `url("${url}")`; bg.classList.add('is-on'); };
+    img.onerror = () => bg.classList.add('is-on'); // keep the flat backdrop
+    img.src = url;
+  }
+
+  fetch('/oak/manifest.json')
+    .then((r) => r.json())
+    .then((m: { styles: { key: string; pframes?: number }[] }) => {
+      const styles = m.styles || [];
+      const pool = portraitMq.matches ? styles.filter((s) => s.pframes != null) : styles;
+      const list = pool.length ? pool : styles;
+      if (!list.length) return show('/oak/photoreal/f_001.jpg');
+      const s = list[Math.floor(Math.random() * list.length)];
+      const portrait = portraitMq.matches && s.pframes != null;
+      show(`/oak/${s.key}/${portrait ? 'portrait/' : ''}f_001.jpg`);
+    })
+    .catch(() => show('/oak/photoreal/f_001.jpg'));
+</script>
