@@ -41,10 +41,10 @@ import Nav from '../components/Nav.astro';
       const styles = m.styles || [];
       const pool = portraitMq.matches ? styles.filter((s) => s.pframes != null) : styles;
       const list = pool.length ? pool : styles;
-      if (!list.length) return show('/oak/photoreal/f_001.jpg');
+      if (!list.length) return show('/oak/photoreal/f_001.webp');
       const s = list[Math.floor(Math.random() * list.length)];
       const portrait = portraitMq.matches && s.pframes != null;
-      show(`/oak/${s.key}/${portrait ? 'portrait/' : ''}f_001.jpg`);
+      show(`/oak/${s.key}/${portrait ? 'portrait/' : ''}f_001.webp`);
     })
-    .catch(() => show('/oak/photoreal/f_001.jpg'));
+    .catch(() => show('/oak/photoreal/f_001.webp'));
 </script>

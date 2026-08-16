@@ -54,7 +54,7 @@
   const usePortrait = (s: typeof STYLES[number]) => portraitMq.matches && s.pframes != null;
   const frameCount = (s: typeof STYLES[number]) => (usePortrait(s) ? s.pframes! : s.frames);
   const frameURL = (s: typeof STYLES[number], i: number) =>
-    `/oak/${s.key}/${usePortrait(s) ? 'portrait/' : ''}f_${String(i + 1).padStart(3, '0')}.jpg`;
+    `/oak/${s.key}/${usePortrait(s) ? 'portrait/' : ''}f_${String(i + 1).padStart(3, "0")}.webp`;
 
   function resize() {
     DPR = Math.min(devicePixelRatio || 1, 2);
@@ -96,16 +96,41 @@
 
   function loadStyle(style: typeof STYLES[number], showLoader: boolean) {
     active = style; ready = false; cur = -1; const my = ++token;
-    N = frameCount(style); imgs = new Array(N); let loaded = 0;
+    N = frameCount(style); imgs = new Array(N);
     if (showLoader) loader.classList.remove('done');
-    for (let i = 0; i < N; i++) {
-      const im = new Image(); im.decoding = 'async';
-      im.onload = im.onerror = () => {
-        if (my !== token) return; loaded++;
-        if (loaded >= N) { ready = true; loader.classList.add('done'); cur = -1; draw(); }
-      };
-      im.src = frameURL(style, i); imgs[i] = im;
-    }
+
+    // Progressive: fetch the frame that is on screen right now first, reveal as
+    // soon as it lands, then stream the rest in the background. Scrolling to a
+    // frame that has not arrived keeps the last drawn one until it does.
+    const fetchFrame = (i: number, priority: boolean) => {
+      const im = new Image();
+      im.decoding = 'async';
+      (im as any).fetchPriority = priority ? 'high' : 'low';
+      im.onload = () => { if (my !== token) return; ready = true; loader.classList.add('done'); draw(); };
+      im.onerror = () => { if (my === token) loader.classList.add('done'); };
+      im.src = frameURL(style, i);
+      imgs[i] = im;
+    };
+
+    const first = Math.min(N - 1, Math.max(0, frameFor()));
+    let restStarted = false;
+    const loadRest = () => {
+      if (restStarted || my !== token) return;
+      restStarted = true;
+      for (let i = 0; i < N; i++) if (i !== first) fetchFrame(i, false);
+    };
+
+    const lead = new Image();
+    lead.decoding = 'async';
+    (lead as any).fetchPriority = 'high';
+    lead.onload = () => {
+      if (my !== token) return;
+      ready = true; loader.classList.add('done'); draw();
+      loadRest();
+    };
+    lead.onerror = () => { if (my === token) { loader.classList.add('done'); loadRest(); } };
+    lead.src = frameURL(style, first);
+    imgs[first] = lead;
   }
   // Portrait viewports only serve styles that ship a portrait set — a proper
   // vertical oak beats a cropped widescreen, even if that's less variety on phones.

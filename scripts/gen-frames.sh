@@ -6,8 +6,12 @@
 #   media-src/<file>.mp4           widescreen
 #   media-src/portrait/<file>.mp4  portrait (optional, per style)
 #
+# Frames are WebP: ~2/3 the bytes of the equivalent JPEG at the same measured
+# quality (PSNR ~42 dB on the busiest frame, i.e. visually lossless). This ffmpeg
+# has no libwebp, so frames come out as PNG and scripts/png2webp.py encodes them.
+#
 # Usage:  bash scripts/gen-frames.sh
-# Tunables: FPS, WIDE_SCALE/PORT_SCALE (px wide), WIDE_Q/PORT_Q (ffmpeg qscale, lower=better)
+# Tunables: FPS, WIDE_SCALE/PORT_SCALE (px wide), WIDE_Q/PORT_Q (WebP quality)
 set -euo pipefail
 
 SRC="${SRC:-media-src}"
@@ -15,8 +19,8 @@ OUT="public/oak"
 FPS="${FPS:-4}"                 # ~40 frames for a 10s clip
 WIDE_SCALE="${WIDE_SCALE:-1280}"  # native source width (720p sources); higher just upscales
 PORT_SCALE="${PORT_SCALE:-720}"   # native portrait source width
-WIDE_Q="${WIDE_Q:-2}"
-PORT_Q="${PORT_Q:-4}"
+WIDE_Q="${WIDE_Q:-88}"
+PORT_Q="${PORT_Q:-86}"
 
 # key | widescreen source (no ext) | label | portrait source (no ext; empty = none)
 STYLES=(
@@ -40,19 +44,23 @@ STYLES=(
 command -v ffmpeg >/dev/null || { echo "ffmpeg not found"; exit 1; }
 rm -rf "$OUT"; mkdir -p "$OUT"
 
+# $1 = source mp4, $2 = output dir, $3 = target width, $4 = webp quality
+extract() {
+  mkdir -p "$2"
+  ffmpeg -v error -i "$1" -vf "fps=${FPS},scale=$3:-2:flags=lanczos" "$2/f_%03d.png" -y
+  python3 scripts/png2webp.py "$2" "$4" >/dev/null
+  ls "$2"/f_*.webp | wc -l | tr -d ' '
+}
+
 entries=()
 for row in "${STYLES[@]}"; do
   IFS='|' read -r key file label pfile <<<"$row"
   mp4="$SRC/$file.mp4"
   if [[ ! -f "$mp4" ]]; then echo "!! missing $mp4 (skipping $key)"; continue; fi
-  mkdir -p "$OUT/$key"
-  ffmpeg -v error -i "$mp4" -vf "fps=${FPS},scale=${WIDE_SCALE}:-2:flags=lanczos" -qscale:v "$WIDE_Q" "$OUT/$key/f_%03d.jpg" -y
-  n=$(ls "$OUT/$key"/f_*.jpg | wc -l | tr -d ' ')
+  n=$(extract "$mp4" "$OUT/$key" "$WIDE_SCALE" "$WIDE_Q")
   pentry=""
   if [[ -n "$pfile" && -f "$SRC/portrait/$pfile.mp4" ]]; then
-    mkdir -p "$OUT/$key/portrait"
-    ffmpeg -v error -i "$SRC/portrait/$pfile.mp4" -vf "fps=${FPS},scale=${PORT_SCALE}:-2:flags=lanczos" -qscale:v "$PORT_Q" "$OUT/$key/portrait/f_%03d.jpg" -y
-    pn=$(ls "$OUT/$key/portrait"/f_*.jpg | wc -l | tr -d ' ')
+    pn=$(extract "$SRC/portrait/$pfile.mp4" "$OUT/$key/portrait" "$PORT_SCALE" "$PORT_Q")
     pentry=",\"pframes\":$pn"
     echo "  $key: $n frames + $pn portrait"
   else
