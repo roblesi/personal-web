@@ -21,6 +21,16 @@ const ogImage = new URL(image, Astro.site).href;
 ---
 
 <!doctype html>
+<!--
+         .-"""""-.
+        /_________\      Robles means oaks.
+       |###########|
+        \         /      You found the roots.
+         \       /
+          \     /        github.com/roblesi/personal-web
+           \   /
+            '-'
+-->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -62,6 +72,17 @@ const ogImage = new URL(image, Astro.site).href;
     <a class="skip-link" href="#main">Skip to content</a>
     <slot />
     <script>
+      // A note for whoever opens the console.
+      console.log(
+        '%c🌰 Robles means oaks.\n' +
+        '%c15 AI-generated oak styles, one at random per visit. Roll the dice to reshuffle.\n' +
+        'Frames, not video: first paint loads one frame, not forty.\n' +
+        '%chttps://github.com/roblesi/personal-web',
+        'color:#cdbf94;font-weight:600;font-size:13px',
+        'color:#9fb39a',
+        'color:#cdbf94',
+      );
+
       // Fire a GA4 event for any link tagged with data-ga (resume download, email, etc.).
       document.addEventListener('click', (e) => {
         const t = e.target as Element | null;

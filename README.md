@@ -63,7 +63,7 @@ acorn, or leave a stray acorn sitting at the base of the mature tree.
 ## Stack
 
 - **[Astro](https://astro.build) 5** static output, zero client framework
-- Vanilla TypeScript in component `<script>` blocks (the whole site ships ~5 KB of JS)
+- Vanilla TypeScript in component `<script>` blocks (~5 KB of first-party JS, no framework runtime; Google Analytics is the only third-party script)
 - Plain CSS, one stylesheet, custom properties for the palette
 - [Geist](https://vercel.com/font) variable font, self-hosted and preloaded
 - GitHub Actions to GitHub Pages, custom domain, HTTPS enforced
