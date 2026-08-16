@@ -80,7 +80,7 @@ src/
 public/oak/       frame sequences + manifest.json
 scripts/          frame extraction pipeline
 resume-src/       PDF generator
-og-src/           social card generator
+og-src/           social share card generators
 ```
 
 ## Content
@@ -107,7 +107,7 @@ Other tasks:
 npm run build              # static build to dist/
 bash scripts/gen-frames.sh # re-extract oak frames from media-src/ (needs ffmpeg + Pillow)
 node resume-src/build.mjs  # rebuild the resume PDF locally (CI does this on push)
-bash og-src/build.sh       # regenerate the social card
+bash og-src/build.sh       # regenerate the social share cards
 ```
 
 Source videos live in `media-src/` and are gitignored: they are large, and the

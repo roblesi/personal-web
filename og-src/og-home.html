@@ -1,0 +1,42 @@
+<meta charset="utf-8">
+<style>
+  @font-face{font-family:"Geist";font-weight:300 700;font-style:normal;src:url("data:font/woff2;base64,__GEIST_B64__") format("woff2")}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1200px;height:630px;overflow:hidden}
+  body{font-family:"Geist",Arial,sans-serif;background:#0d1712;color:#fbfff4;position:relative}
+
+  /* the oak itself, with a scrim so the type stays legible over the canopy */
+  .bg{position:absolute;inset:0;background:url("data:image/webp;base64,__BG_B64__") center center / cover no-repeat}
+  .scrim{position:absolute;inset:0;background:
+    linear-gradient(90deg, rgba(8,14,10,.95) 0%, rgba(8,14,10,.86) 40%, rgba(8,14,10,.35) 72%, rgba(8,14,10,.12) 100%)}
+  .frame{position:absolute;inset:26px;border:1px solid rgba(205,191,148,.28);border-radius:20px}
+
+  .wrap{position:absolute;inset:0;padding:84px 92px;display:flex;flex-direction:column;justify-content:space-between}
+  .top{display:flex;align-items:center;justify-content:space-between}
+  .mono{font-weight:600;font-size:26px;letter-spacing:.22em}
+  .site{font-size:24px;letter-spacing:.06em;color:#cdbf94}
+  .mid{margin-top:auto;margin-bottom:auto;max-width:780px}
+  h1{font-weight:300;font-size:106px;letter-spacing:-.03em;line-height:.98}
+  .rule{width:132px;height:3px;border-radius:3px;background:#cdbf94;margin-top:30px;opacity:.9}
+  .sub{margin-top:26px;font-size:34px;font-weight:300;letter-spacing:.005em;color:#c9d3c2}
+  .sub b{color:#cdbf94;font-weight:400}
+  .aside{margin-top:16px;font-size:23px;font-weight:300;color:#9fb39a}
+  .aside em{font-style:normal;color:#cdbf94}
+</style>
+
+<div class="bg"></div>
+<div class="scrim"></div>
+<div class="frame"></div>
+<div class="wrap">
+  <div class="top">
+    <span class="mono">IR</span>
+    <span class="site">ignaciorobl.es</span>
+  </div>
+  <div class="mid">
+    <h1>Ignacio Robles</h1>
+    <div class="rule"></div>
+    <div class="sub">Staff Software Engineer at <b>Google</b> · AI-native</div>
+    <div class="aside">Robles means <em>oaks</em>.</div>
+  </div>
+  <div style="height:8px"></div>
+</div>
