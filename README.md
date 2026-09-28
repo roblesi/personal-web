@@ -72,9 +72,9 @@ acorn, or leave a stray acorn sitting at the base of the mature tree.
 
 ```
 src/
-  pages/          index.astro, resume.astro, 404.astro
+  pages/          index.astro, resume.astro, projects.astro, 404.astro
   components/     OakHero (canvas engine), Timeline, Nav, Grass
-  content/        timeline/*.md, one file per career stop
+  content/        timeline/*.md and projects/*.md, one file per entry
   data/           resume.mjs, single source for the resume page and PDF
   layouts/        Base.astro, head, SEO, analytics
 public/oak/       frame sequences + manifest.json
@@ -88,6 +88,10 @@ og-src/           social share card generators
 **Timeline.** One markdown file per stop in `src/content/timeline/`, ordered by
 `order` (1 is the crown, higher is further back in time). Typed with an Astro
 content collection, so a malformed entry fails the build instead of the page.
+
+**Projects.** One markdown file per project in `src/content/projects/`, rendered
+at `/projects`. Same idea as the timeline: typed, ordered by `order`, with an
+optional `result` line for a project worth quoting a number on.
 
 **Resume.** Everything lives in [`src/data/resume.mjs`](src/data/resume.mjs).
 The `/resume` page renders it, and CI regenerates `public/resume.pdf` from the

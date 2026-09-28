@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base
+  title="Projects · Ignacio Robles"
+  description="Side projects by Ignacio Robles: FiestaBoard, and other things built to scratch an itch.">
+  <Nav />
+  <main class="page projects" id="main">
+    <div class="eyebrow">Projects</div>
+    <h1>Things I build</h1>
+    <p class="lede">Side work, usually started because something annoyed me enough to fix it. Open source where it makes sense.</p>
+
+    <div class="proj-list">
+      {projects.map((p) => (
+        <article class="proj">
+          <h2 class="proj-name">{p.data.name}</h2>
+          <p class="proj-tagline">{p.data.tagline}</p>
+          <p class="proj-blurb">{p.data.blurb}</p>
+          {p.data.result && <p class="proj-result">{p.data.result}</p>}
+          {p.data.tags.length > 0 && (
+            <div class="proj-tags">{p.data.tags.map((t) => <b>{t}</b>)}</div>
+          )}
+          {p.data.links.length > 0 && (
+            <div class="proj-links">
+              {p.data.links.map((l) => (
+                <a href={l.href} target="_blank" rel="noopener">{l.label}</a>
+              ))}
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </main>
+</Base>
+
+<style>
+  .proj-list{margin-top:34px;border-top:1px solid var(--line)}
+  .proj{padding:30px 0;border-bottom:1px solid var(--line)}
+  /* beats the small uppercase .page h2 rule; project names are the headline here */
+  .projects .proj-name{font-weight:400;font-size:clamp(22px,3.4vw,28px);letter-spacing:-.01em;
+    text-transform:none;color:var(--cream);margin:0}
+  .proj-tagline{margin-top:6px;font-size:13px;letter-spacing:.04em;color:var(--gold)}
+  .proj-blurb{margin-top:14px;color:var(--cream-dim);line-height:1.65;max-width:68ch}
+  .proj-result{margin-top:12px;font-size:13.5px;letter-spacing:.03em;color:var(--cream);
+    border-left:2px solid var(--gold);padding-left:12px}
+  .proj-tags{margin-top:18px;display:flex;gap:8px;flex-wrap:wrap}
+  .proj-tags b{font-weight:400;font-size:11.5px;letter-spacing:.04em;color:var(--cream-dim);
+    border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+  .proj-links{margin-top:16px;display:flex;gap:18px;flex-wrap:wrap}
+  .proj-links a{display:inline-block;color:var(--gold);text-decoration:none;font-size:13px;
+    letter-spacing:.04em;border-bottom:1px solid rgba(205,191,148,.35);padding:4px 2px 2px}
+  .proj-links a:hover{border-color:var(--gold)}
+</style>

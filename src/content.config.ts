@@ -20,4 +20,19 @@ const timeline = defineCollection({
   }),
 });
 
-export const collections = { timeline };
+// One file per project in src/content/projects/, ordered by `order` (1 first).
+const projects = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
+  schema: z.object({
+    order: z.number(),
+    name: z.string(),
+    tagline: z.string(),
+    blurb: z.string(),
+    result: z.string().optional(), // a measured outcome, called out on the card
+    tags: z.array(z.string()).default([]),
+    links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
+  }),
+});
+
+export const collections = { timeline, projects };
+
