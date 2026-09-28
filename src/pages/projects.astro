@@ -13,7 +13,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
   <main class="page projects" id="main">
     <div class="eyebrow">Projects</div>
     <h1>Things I build</h1>
-    <p class="lede">Side work, usually started because something annoyed me enough to fix it. Open source where it makes sense.</p>
+    <p class="lede">Side work, built out of curiosity or because something annoyed me enough to fix. Open source where it makes sense.</p>
 
     <div class="proj-list">
       {projects.map((p) => (
