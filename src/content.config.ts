@@ -7,7 +7,7 @@ const timeline = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/timeline' }),
   schema: z.object({
     order: z.number(),
-    kind: z.enum(['job', 'project', 'education']),
+    kind: z.enum(['job', 'education']),
     title: z.string(),
     dateLabel: z.string(), // shown in the card, e.g. "Apr 2025 - now · Google · SF"
     sideLabel: z.string(), // shown opposite the card, e.g. "2025 - now"
