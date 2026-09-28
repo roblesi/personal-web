@@ -49,7 +49,7 @@ the portrait set and only pick styles that have one. Rotating the device swaps
 frame sets.
 
 **Art styles.** 15 of them (photoreal, claymation, ukiyo-e, chalkboard,
-bioluminescent, felted wool, and so on), generated with Google Veo and picked at
+bioluminescent, felted wool, and so on), generated with Google Gemini and picked at
 random per visit, so the site rarely looks the same twice. The dice in the corner
 rerolls it, and so does pulling down from the top on a touch device, where an
 acorn sprouts as you release.
