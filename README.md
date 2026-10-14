@@ -91,7 +91,8 @@ content collection, so a malformed entry fails the build instead of the page.
 
 **Projects.** One markdown file per project in `src/content/projects/`, rendered
 at `/projects`. Same idea as the timeline: typed, ordered by `order`, with an
-optional `result` line for a project worth quoting a number on.
+optional `result` line for a project worth quoting a number on, and an optional
+`image` (with `imageAlt`) from `src/assets/projects/`, which Astro resizes to WebP at build.
 
 **Resume.** Everything lives in [`src/data/resume.mjs`](src/data/resume.mjs).
 The `/resume` page renders it, and CI regenerates `public/resume.pdf` from the

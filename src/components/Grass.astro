@@ -1,5 +1,7 @@
 ---
-// The seed / contact. Update the hrefs once the domain email + handles are final.
+// The seed / contact. Email comes from the resume data so the two never disagree.
+import { resume } from '../data/resume.mjs';
+const { email } = resume.contact;
 ---
 <section class="ground" id="contact" aria-label="Contact">
   <div class="contact">
@@ -7,9 +9,10 @@
     <h2>Where it all started.</h2>
     <p>One acorn, resting in the grass. Let's talk.</p>
     <div class="row">
-      <a href="mailto:hello@ignaciorobl.es" data-ga="email_click">Email</a>
+      <a href={`mailto:${email}`} data-ga="email_click">{email}</a>
       <a href="https://github.com/roblesi" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.linkedin.com/in/ignaciorobles" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="/resume">Resume</a>
     </div>
   </div>
 </section>
