@@ -23,12 +23,15 @@ const timeline = defineCollection({
 // One file per project in src/content/projects/, ordered by `order` (1 first).
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     order: z.number(),
     name: z.string(),
     tagline: z.string(),
     blurb: z.string(),
     result: z.string().optional(), // a measured outcome, called out on the card
+    // optional picture of the thing itself, relative to this file (src/assets/projects/)
+    image: image().optional(),
+    imageAlt: z.string().optional(),
     tags: z.array(z.string()).default([]),
     links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
   }),
